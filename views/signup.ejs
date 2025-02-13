@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/topbar.css">
+    <link rel="stylesheet" href="/signup.css">
+  </head>
+  <body>
+    <%- include('partials/topbar', {user : user}) %>
+    <form action="/users/signup" method="POST">
+  
+      <label for="username">Email:</label>
+      <input id="username" name="username" type="email" required>
+  
+      <label for="password">Password:</label>
+      <input id="password" name="password" type="password" required>
+  
+      <label for="confirmPassword">Confirm Password:</label>
+      <input id="confirmPassword" name="passwordConfirmation" type="password" required>
+  
+      <button type="submit">Register</button>
+  </form>
+  </body>
+</html>

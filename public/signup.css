@@ -1,0 +1,19 @@
+form {
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 1% 25%;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    background-color: lightcoral;
+    padding: 1%;
+    border-radius: 1rem;
+}
+
+form > input, form > label {
+    width: 100%;
+}
+
+form > button {
+    width: 50%;
+}
