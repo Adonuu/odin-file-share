@@ -11,6 +11,7 @@ model User {
   id        String   @id @default(uuid())
   username  String   @unique @db.VarChar(255)
   password  String   @db.VarChar(255)
+  files     File[]
 }
 
 
@@ -19,4 +20,14 @@ model Session {
   sid       String   @unique
   data      String
   expiresAt DateTime
+}
+
+model File {
+  id        String   @id @default(uuid()) 
+  filename  String   
+  fileType  String   
+  filePath  String   
+  uploadedAt DateTime @default(now()) 
+  userId    String   
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

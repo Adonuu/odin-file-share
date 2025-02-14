@@ -1,8 +1,9 @@
 <div class="topbar">
-    <h1>Members Only</h1>
+    <h1>File Share</h1>
     <div class="links">
         <% if (user) { %>
             <span>Welcome, <%= user.username %></span>
+            <a href="/file/upload">Upload File</a>
             <a href="/users/logout">Logout</a>
         <% } else { %>
             <a href="/users/signup">Sign Up</a>

@@ -28,9 +28,11 @@ app.use((req, res, next) => {
 const usersRouter = require("./routes/usersRouter");
 app.use("/users", usersRouter);
 
-app.get("/", (req, res) => {
-    res.render("index", { user: req.user });
-})
+const fileRouter = require("./routes/fileRouter");
+app.use("/file", fileRouter);
+
+const indexRouter = require("./routes/indexRouter");
+app.use("/", indexRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Express app listening on port ${PORT}!`));

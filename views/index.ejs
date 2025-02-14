@@ -7,5 +7,19 @@
   </head>
   <body>
     <%- include('partials/topbar', {user: user}) %>
+    <h2>Your Uploaded Files</h2>
+    <% if (files.length > 0) { %>
+      <ul>
+        <% files.forEach(file => { %>
+          <li>
+            <strong><%= file.filename %></strong> 
+            (<%= file.fileType %>) 
+            - <a href="/uploads/<%= file.filename %>" download>Download</a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>You haven't uploaded any files yet.</p>
+    <% } %>
   </body>
 </html>

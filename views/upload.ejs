@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>File Upload</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/topbar.css">
+    <link rel="stylesheet" href="/signup.css">
+  </head>
+  <body>
+    <%- include('partials/topbar', {user : user}) %>
+    <form action="/file/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" required>
+      <button type="submit">Upload</button>
+    </form>  
+  </body>
+</html>
