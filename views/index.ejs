@@ -6,20 +6,29 @@
     <link rel="stylesheet" href="/signup.css">
   </head>
   <body>
-    <%- include('partials/topbar', {user: user}) %>
-    <h2>Your Uploaded Files</h2>
-    <% if (files.length > 0) { %>
+    <%- include('partials/topbar', {user: user, folder: null }) %>
+    <h2>Your Uploaded Files and Folders</h2>
+    
+    <% let items = [...folders.map(f => ({ name: f.name, type: 'folder', id: f.id })), 
+                   ...files.map(f => ({ name: f.filename, type: 'file', fileType: f.fileType, filename: f.filename }))];
+       items.sort((a, b) => a.name.localeCompare(b.name)); %>
+    
+    <% if (items.length > 0) { %>
       <ul>
-        <% files.forEach(file => { %>
+        <% items.forEach(item => { %>
           <li>
-            <strong><%= file.filename %></strong> 
-            (<%= file.fileType %>) 
-            - <a href="/uploads/<%= file.filename %>" download>Download</a>
+            <% if (item.type === 'folder') { %>
+              <strong><a href="/folder/view/<%= item.id %>"><%= item.name %></a></strong>
+            <% } else { %>
+              <strong><%= item.name %></strong> 
+              (<%= item.fileType %>) 
+              - <a href="/uploads/<%= item.filename %>" download>Download</a>
+            <% } %>
           </li>
         <% }) %>
       </ul>
     <% } else { %>
-      <p>You haven't uploaded any files yet.</p>
+      <p>You haven't uploaded any files or created any folders yet.</p>
     <% } %>
   </body>
 </html>

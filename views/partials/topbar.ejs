@@ -3,7 +3,12 @@
     <div class="links">
         <% if (user) { %>
             <span>Welcome, <%= user.username %></span>
-            <a href="/file/upload">Upload File</a>
+            <% if (!folder) { %> 
+                <a href="/folder/create">Create Folder</a>
+                <a href="/file/upload">Upload File</a>
+            <% } else { %>
+                <a href="/folder/upload/<%= folder.id %>">Upload File to Folder</a>
+            <% } %>
             <a href="/users/logout">Logout</a>
         <% } else { %>
             <a href="/users/signup">Sign Up</a>

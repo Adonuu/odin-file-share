@@ -12,6 +12,7 @@ model User {
   username  String   @unique @db.VarChar(255)
   password  String   @db.VarChar(255)
   files     File[]
+  folders   Folder[]
 }
 
 
@@ -30,4 +31,15 @@ model File {
   uploadedAt DateTime @default(now()) 
   userId    String   
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  folderId  String?  
+  folder    Folder?  @relation(fields: [folderId], references: [id], onDelete: SetNull)
+}
+
+model Folder {
+  id        String  @id @default(uuid()) 
+  name      String  @db.VarChar(255) 
+  createdAt DateTime @default(now()) 
+  userId    String  
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  files     File[]
 }

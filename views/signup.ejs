@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/signup.css">
   </head>
   <body>
-    <%- include('partials/topbar', {user : user}) %>
+    <%- include('partials/topbar', {user : user, folder: null }) %>
     <form action="/users/signup" method="POST">
   
       <label for="username">Email:</label>

@@ -31,6 +31,9 @@ app.use("/users", usersRouter);
 const fileRouter = require("./routes/fileRouter");
 app.use("/file", fileRouter);
 
+const folderRouter = require("./routes/folderRouter");
+app.use("/folder", folderRouter);
+
 const indexRouter = require("./routes/indexRouter");
 app.use("/", indexRouter);
 

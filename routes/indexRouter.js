@@ -4,6 +4,6 @@ const indexController = require("../controllers/indexController");
 
 const indexRouter = Router();
 
-indexRouter.get("/", indexController.getFiles);
+indexRouter.get("/", indexController.getFilesAndFolders);
 
 module.exports = indexRouter;

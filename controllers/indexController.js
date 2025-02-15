@@ -1,23 +1,30 @@
 const prisma = require("../prisma");
 
-const getFiles = async (req, res) => {
+const getFilesAndFolders = async (req, res) => {
     if (!req.user) {
         return res.redirect("/login"); // Ensure user is logged in
     }
 
     try {
-        const files = await prisma.file.findMany({
-            where: { userId: req.user.id }, // Fetch only logged-in user's files
-            orderBy: { uploadedAt: "desc" }  // Sort by latest uploaded
-        });
+        // Run both the file and folder queries concurrently using Promise.all
+        const [files, folders] = await Promise.all([
+            prisma.file.findMany({
+                where: { userId: req.user.id },
+                orderBy: { uploadedAt: "desc" }
+            }),
+            prisma.folder.findMany({
+                where: { userId: req.user.id },
+                orderBy: { createdAt: "desc" }
+            })
+        ]);
 
-        res.render("index", { user: req.user, files: files });
+        res.render("index", { user: req.user, files, folders });
     } catch (err) {
-        console.error("Error fetching files:", err);
-        res.status(500).send("Error loading files.");
+        console.error("Error fetching files and folders:", err);
+        res.status(500).send("Error loading files and folders.");
     }
-}
+};
 
 module.exports = {
-    getFiles
-}
+    getFilesAndFolders,
+};
