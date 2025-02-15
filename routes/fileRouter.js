@@ -10,6 +10,9 @@ fileRouter.get("/upload", (req, res) => {
     res.render("upload", { user: req.user });
 })
 
+fileRouter.get("/download/:fileId", fileController.downloadFile);
+
+
 // post routes
 fileRouter.post("/upload/:userId", upload.single("file"), fileController.createFile);
 

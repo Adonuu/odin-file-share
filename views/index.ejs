@@ -6,12 +6,22 @@
     <link rel="stylesheet" href="/signup.css">
   </head>
   <body>
-    <%- include('partials/topbar', {user: user, folder: null }) %>
+    <%- include('partials/topbar', { user: user, folder: null }) %>
     <h2>Your Uploaded Files and Folders</h2>
     
-    <% let items = [...folders.map(f => ({ name: f.name, type: 'folder', id: f.id })), 
-                   ...files.map(f => ({ name: f.filename, type: 'file', fileType: f.fileType, filename: f.filename }))];
-       items.sort((a, b) => a.name.localeCompare(b.name)); %>
+    <% let items = [
+         ...folders.map(f => ({ name: f.name, type: 'folder', id: f.id })), 
+         ...files.map(f => ({
+             id: f.id,
+             name: f.filename, 
+             type: 'file', 
+             fileType: f.fileType, 
+             filename: f.filename, 
+             uploadedAt: f.uploadedAt ? new Date(f.uploadedAt).toLocaleString() : null
+         }))
+       ];
+       items.sort((a, b) => a.name.localeCompare(b.name)); 
+    %>
     
     <% if (items.length > 0) { %>
       <ul>
@@ -22,7 +32,11 @@
             <% } else { %>
               <strong><%= item.name %></strong> 
               (<%= item.fileType %>) 
-              - <a href="/uploads/<%= item.filename %>" download>Download</a>
+              - <a href="/file/download/<%= item.id %>" download>Download</a> 
+              <% if (item.uploadedAt) { %>
+                <br>
+                <small>Uploaded on: <%= item.uploadedAt %></small>
+              <% } %>
             <% } %>
           </li>
         <% }) %>
